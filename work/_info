@@ -1,0 +1,393 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA/20.1
+vALU
+Z0 !s110 1735425929
+!i10b 1
+!s100 9UYz01:Fne<2T=oCf]>Pb2
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I:c>XYg6N6zMj83Vbj0nN63
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dC:/Users/noore/Desktop/Full cpu/Processor
+Z4 w1735316864
+Z5 8C:/Users/noore/Desktop/Full cpu/Processor/Alu.v
+Z6 FC:/Users/noore/Desktop/Full cpu/Processor/Alu.v
+!i122 118
+L0 1 53
+Z7 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z8 !s108 1735425929.000000
+Z9 !s107 C:/Users/noore/Desktop/Full cpu/Processor/Alu.v|
+Z10 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/noore/Desktop/Full cpu/Processor/Alu.v|
+!i113 1
+Z11 o-work work
+Z12 tCvgOpt 0
+n@a@l@u
+vALU_tb
+R0
+!i10b 1
+!s100 MHeQRc<j<ngA<?2Jb=7OO2
+R1
+IAQlDlO[=2db?IBT4i2MXG2
+R2
+R3
+R4
+R5
+R6
+!i122 118
+L0 55 71
+R7
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 1
+R11
+R12
+n@a@l@u_tb
+vControlUnit
+R0
+!i10b 1
+!s100 9R=h3dWJm2QgCdGdR8m5n3
+R1
+IAi9K_POj]FBB^]HOz5W3I2
+R2
+R3
+Z13 w1735424892
+Z14 8C:/Users/noore/Desktop/Full cpu/Processor/ControlUnit.v
+Z15 FC:/Users/noore/Desktop/Full cpu/Processor/ControlUnit.v
+!i122 119
+L0 52 577
+R7
+r1
+!s85 0
+31
+R8
+Z16 !s107 C:/Users/noore/Desktop/Full cpu/Processor/ControlUnit.v|
+Z17 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/noore/Desktop/Full cpu/Processor/ControlUnit.v|
+!i113 1
+R11
+R12
+n@control@unit
+vDataPath
+R0
+!i10b 1
+!s100 IZO7R3=4nCVh0PoG;fIZE3
+R1
+I<`h0J0WdeF_Mc61IkRCOb0
+R2
+R3
+Z18 w1735409296
+Z19 8C:/Users/noore/Desktop/Full cpu/Processor/DataPath.v
+Z20 FC:/Users/noore/Desktop/Full cpu/Processor/DataPath.v
+!i122 120
+L0 61 135
+R7
+r1
+!s85 0
+31
+R8
+Z21 !s107 C:/Users/noore/Desktop/Full cpu/Processor/DataPath.v|
+Z22 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/noore/Desktop/Full cpu/Processor/DataPath.v|
+!i113 1
+R11
+R12
+n@data@path
+vE_FlipFlop
+R0
+!i10b 1
+!s100 jT[jO;BV:MVii_Rm1b5D21
+R1
+I=oKQTnbYn:=KkPecS[HDJ2
+R2
+R3
+R18
+R19
+R20
+!i122 120
+L0 1 34
+R7
+r1
+!s85 0
+31
+R8
+R21
+R22
+!i113 1
+R11
+R12
+n@e_@flip@flop
+vmemory_unit
+!s110 1735426141
+!i10b 1
+!s100 YG2dKjJjEjV2cSh`mN@1H0
+R1
+Ik2jb<=TEiT^]IclC1M6gd2
+R2
+R3
+w1735426127
+8C:/Users/noore/Desktop/Full cpu/Processor/Memory.v
+FC:/Users/noore/Desktop/Full cpu/Processor/Memory.v
+!i122 126
+L0 1 76
+R7
+r1
+!s85 0
+31
+!s108 1735426141.000000
+!s107 C:/Users/noore/Desktop/Full cpu/Processor/Memory.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/noore/Desktop/Full cpu/Processor/Memory.v|
+!i113 1
+R11
+R12
+vmemory_unit_tb
+!s110 1735403112
+!i10b 1
+!s100 b83I5?zDM9lfE78eDVoGQ2
+R1
+IGGKcCTi4]Ijfol1I5Y]im0
+R2
+Z23 dC:/Users/amroa/Desktop/Processor
+w1735403084
+8C:\Users\amroa\Desktop\Processor\Memory.v
+FC:\Users\amroa\Desktop\Processor\Memory.v
+!i122 60
+L0 51 52
+R7
+r1
+!s85 0
+31
+!s108 1735403112.000000
+!s107 C:\Users\amroa\Desktop\Processor\Memory.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:\Users\amroa\Desktop\Processor\Memory.v|
+!i113 1
+R11
+R12
+vProcessor
+Z24 !s110 1735425930
+!i10b 1
+!s100 [^DccS`a8<6?8?VI97aAX2
+R1
+ITAE`J2d8MQ4ZDgh52;AZ42
+R2
+R3
+w1735409105
+8C:/Users/noore/Desktop/Full cpu/Processor/Processor.v
+FC:/Users/noore/Desktop/Full cpu/Processor/Processor.v
+!i122 122
+Z25 L0 1 39
+R7
+r1
+!s85 0
+31
+Z26 !s108 1735425930.000000
+!s107 C:/Users/noore/Desktop/Full cpu/Processor/Processor.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/noore/Desktop/Full cpu/Processor/Processor.v|
+!i113 1
+R11
+R12
+n@processor
+vProcessor_tb
+R24
+!i10b 1
+!s100 G3oCg>azYIhf[<KCn>z:I1
+R1
+IjcSa@JlPRT>B;l?[PLbEf1
+R2
+R3
+w1735409086
+8C:/Users/noore/Desktop/Full cpu/Processor/Processor_tb.v
+FC:/Users/noore/Desktop/Full cpu/Processor/Processor_tb.v
+!i122 123
+R25
+R7
+r1
+!s85 0
+31
+R26
+!s107 C:/Users/noore/Desktop/Full cpu/Processor/Processor_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/noore/Desktop/Full cpu/Processor/Processor_tb.v|
+!i113 1
+R11
+R12
+n@processor_tb
+vReg_ref_testbench
+!s110 1735409391
+!i10b 1
+!s100 nLO<od5iSahk@BQl5<SFh1
+R1
+IT0_9Tn3E366RPPIGjg4kl0
+R2
+R23
+w1735396128
+8C:/Users/amroa/Desktop/Processor/regreftest.v
+FC:/Users/amroa/Desktop/Processor/regreftest.v
+!i122 71
+L0 3 102
+R7
+r1
+!s85 0
+31
+!s108 1735409391.000000
+!s107 C:/Users/amroa/Desktop/Processor/regreftest.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/amroa/Desktop/Processor/regreftest.v|
+!i113 1
+R11
+R12
+n@reg_ref_testbench
+vRegister
+R24
+!i10b 1
+!s100 bdiS^fG5hVg77cR3kKg]k1
+R1
+Izj<JQho3b3ZU:ba^ob4PE1
+R2
+R3
+Z27 w1735309981
+Z28 8C:/Users/noore/Desktop/Full cpu/Processor/Register.v
+Z29 FC:/Users/noore/Desktop/Full cpu/Processor/Register.v
+!i122 124
+L0 1 31
+R7
+r1
+!s85 0
+31
+R26
+Z30 !s107 C:/Users/noore/Desktop/Full cpu/Processor/Register.v|
+Z31 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/noore/Desktop/Full cpu/Processor/Register.v|
+!i113 1
+R11
+R12
+n@register
+vRegisterFile
+R24
+!i10b 1
+!s100 C48Xk<b=hQQP6>B^g9]F^0
+R1
+IhMaS8Hf<41_;hYJzH_fOG1
+R2
+R3
+R27
+R28
+R29
+!i122 124
+L0 37 30
+R7
+r1
+!s85 0
+31
+R26
+R30
+R31
+!i113 1
+R11
+R12
+n@register@file
+vS_FlipFlop
+R0
+!i10b 1
+!s100 hZLe1j=18BXGeinE0Y_g;1
+R1
+I^2joczH92K6eYBbZ9bkgE1
+R2
+R3
+R18
+R19
+R20
+!i122 120
+L0 35 25
+R7
+r1
+!s85 0
+31
+R8
+R21
+R22
+!i113 1
+R11
+R12
+n@s_@flip@flop
+vSeqCounter
+R0
+!i10b 1
+!s100 Z4VBb4gSe?WL0T;d;9R681
+R1
+I@MIDbAA;D`=5DkPfdlE3Y3
+R2
+R3
+R13
+R14
+R15
+!i122 119
+L0 1 15
+R7
+r1
+!s85 0
+31
+R8
+R16
+R17
+!i113 1
+R11
+R12
+n@seq@counter
+vSeqDecoder
+R0
+!i10b 1
+!s100 5=T^Fc9=Tm;dBE==NzZTV0
+R1
+I=[;n353[fQ4JmUb3:iMCC2
+R2
+R3
+R13
+R14
+R15
+!i122 119
+L0 18 33
+R7
+r1
+!s85 0
+31
+R8
+R16
+R17
+!i113 1
+R11
+R12
+n@seq@decoder
+vtb_RegisterFile
+R24
+!i10b 1
+!s100 <oim?nZZCf=3`]QOR=Eg53
+R1
+I;;El;eNJJagUKTT=GUe2;0
+R2
+R3
+R27
+R28
+R29
+!i122 124
+L0 70 62
+R7
+r1
+!s85 0
+31
+R26
+R30
+R31
+!i113 1
+R11
+R12
+ntb_@register@file
