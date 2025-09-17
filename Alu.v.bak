@@ -1,0 +1,147 @@
+module ALU (
+    input wire enable,
+    input wire signed [15:0] data1,
+    input wire signed [15:0] data2,
+    input wire [7:0] INPR,
+    input wire [2:0] operation,    // ALU operation code
+    output reg [15:0] result,      // ALU result
+    output reg zero                // Zero signal
+);
+
+    // Operation codes
+    localparam NUL = 3'b000, 
+               ADD = 3'b001, 
+               AND = 3'b010, 
+               COM = 3'b011,
+               XOR = 3'b100, 
+               SLL = 3'b101, 
+               SRL = 3'b110,
+               INP = 3'b111;
+
+    // ALU operations
+    always @(*) begin
+    if (enable) begin
+        zero = 0;  // Initialize zero signal to zero
+
+        case (operation)
+            NUL: ;                    // Do nothing
+            ADD: result = data1 + data2;            // Addition            
+            AND: result = data1 & data2;            // Bitwise AND
+            COM: result = ~data1;                   // Complement
+            XOR: result = data1 ^ data2;            // Bitwise XOR
+            SLL: begin
+                zero = data1[15];      
+                result = data1 << 1;  
+            end
+            SRL: begin
+                zero = data1[0];       
+                result = data1 >> 1;  
+            end
+            INP: result = INPR;               // Input character to AC
+            default: result = 16'hDEAD;         // Default unknown operation
+        endcase
+
+        // Set zero flag if result is zero for non-shift operations
+        if (operation != SLL && operation != SRL) begin
+            if (result == 0) begin
+                zero = 1;
+            end
+        end
+    end
+end
+
+endmodule
+
+module ALU_tb;
+
+    reg enable;
+    reg signed [15:0] data1, data2;
+    reg [7:0] INPR;
+    reg [2:0] operation;
+    wire [15:0] result;
+    wire zero;
+
+    // Instantiate the ALU
+    ALU uut (
+        .enable(enable),
+        .data1(data1),
+        .data2(data2),
+        .INPR(INPR),
+        .operation(operation),
+        .result(result),
+        .zero(zero)
+    );
+
+    initial begin
+        // Initialize signals
+        enable = 0;
+        data1 = 0;
+        data2 = 0;
+        INPR = 0;
+        operation = 3'b000;
+
+        // Enable the ALU
+        $display("Enabling ALU...");
+        enable = 1;
+
+        // Test ADD operation
+        $display("Testing ADD operation...");
+        data1 = 16'h000A;
+        data2 = 16'h0005;
+        operation = 3'b001; // ADD
+        #10;
+        $display("Result: %h, Zero: %b", result, zero);
+
+        // Test AND operation
+        $display("Testing AND operation...");
+        data1 = 16'hF0F0;
+        data2 = 16'h0FF0;
+        operation = 3'b010; // AND
+        #10;
+        $display("Result: %h, Zero: %b", result, zero);
+
+        // Test COM operation
+        $display("Testing COM operation...");
+        data1 = 16'h00FF;
+        operation = 3'b011; // COM
+        #10;
+        $display("Result: %h, Zero: %b", result, zero);
+
+        // Test XOR operation
+        $display("Testing XOR operation...");
+        data1 = 16'hF0F0;
+        data2 = 16'h0FF0;
+        operation = 3'b100; // XOR
+        #10;
+        $display("Result: %h, Zero: %b", result, zero);
+
+        // Test SLL operation
+        $display("Testing SLL operation...");
+        data1 = 16'h8001;
+        operation = 3'b101; // SLL
+        #10;
+        $display("Result: %h, Zero: %b", result, zero);
+
+        // Test SRL operation
+        $display("Testing SRL operation...");
+        data1 = 16'h8001;
+        operation = 3'b110; // SRL
+        #10;
+        $display("Result: %h, Zero: %b", result, zero);
+
+        // Test INP operation
+        $display("Testing INP operation...");
+        INPR = 8'hAA;
+        operation = 3'b111; // INP
+        #10;
+        $display("Result: %h, Zero: %b", result, zero);
+
+        // Disable ALU
+        $display("Disabling ALU...");
+        enable = 0;
+        #10;
+
+        $finish;
+    end
+
+endmodule

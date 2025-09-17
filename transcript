@@ -1,0 +1,55 @@
+# Reading pref.tcl
+# OpenFile {C:/Users/noore/Desktop/Full cpu/Processor/Processor.mpf}
+# Loading project Processor
+# Compile of Alu.v was successful.
+# Compile of ControlUnit.v was successful.
+# Compile of DataPath.v was successful.
+# Compile of Memory.v was successful.
+# Compile of Processor.v was successful.
+# Compile of Processor_tb.v was successful.
+# Compile of Register.v was successful.
+# 7 compiles, 0 failed with no errors.
+# Compile of Memory.v was successful.
+# Load canceled
+# Compile of Memory.v was successful.
+vsim -gui work.Processor_tb
+# vsim -gui work.Processor_tb 
+# Start time: 01:49:12 on Dec 29,2024
+# Loading work.Processor_tb
+# Loading work.Processor
+# Loading work.DataPath
+# Loading work.RegisterFile
+# Loading work.Register
+# Loading work.ALU
+# Loading work.memory_unit
+# Loading work.E_FlipFlop
+# Loading work.S_FlipFlop
+# Loading work.ControlUnit
+# Loading work.SeqCounter
+# Loading work.SeqDecoder
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'uut'.  Expected 20, found 19.
+#    Time: 0 ps  Iteration: 0  Instance: /Processor_tb/pr/uut File: C:/Users/noore/Desktop/Full cpu/Processor/Processor.v Line: 21
+# ** Warning: (vsim-3722) C:/Users/noore/Desktop/Full cpu/Processor/Processor.v(21): [TFMPC] - Missing connection for port 'dout_OUTR'.
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clear'. The port definition is at: C:/Users/noore/Desktop/Full cpu/Processor/Register.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /Processor_tb/pr/uut/reg_file/IR File: C:/Users/noore/Desktop/Full cpu/Processor/Register.v Line: 57
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'increment'. The port definition is at: C:/Users/noore/Desktop/Full cpu/Processor/Register.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /Processor_tb/pr/uut/reg_file/IR File: C:/Users/noore/Desktop/Full cpu/Processor/Register.v Line: 57
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clear'. The port definition is at: C:/Users/noore/Desktop/Full cpu/Processor/Register.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /Processor_tb/pr/uut/reg_file/INPR File: C:/Users/noore/Desktop/Full cpu/Processor/Register.v Line: 63
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'increment'. The port definition is at: C:/Users/noore/Desktop/Full cpu/Processor/Register.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /Processor_tb/pr/uut/reg_file/INPR File: C:/Users/noore/Desktop/Full cpu/Processor/Register.v Line: 63
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'clear'. The port definition is at: C:/Users/noore/Desktop/Full cpu/Processor/Register.v(6).
+#    Time: 0 ps  Iteration: 0  Instance: /Processor_tb/pr/uut/reg_file/OUTR File: C:/Users/noore/Desktop/Full cpu/Processor/Register.v Line: 64
+# ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (32) for port 'increment'. The port definition is at: C:/Users/noore/Desktop/Full cpu/Processor/Register.v(5).
+#    Time: 0 ps  Iteration: 0  Instance: /Processor_tb/pr/uut/reg_file/OUTR File: C:/Users/noore/Desktop/Full cpu/Processor/Register.v Line: 64
+add wave -position insertpoint sim:/Processor_tb/*
+run
+run
+run
+run
+run
+run
+run
+run
+# End time: 01:50:07 on Dec 29,2024, Elapsed time: 0:00:55
+# Errors: 0, Warnings: 12

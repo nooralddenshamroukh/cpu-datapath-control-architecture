@@ -1,0 +1,57 @@
+{C:/Users/noore/Desktop/Full cpu/Processor/DataPath.v} {1 {vlog -work work -stats=none {C:/Users/noore/Desktop/Full cpu/Processor/DataPath.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module E_FlipFlop
+-- Compiling module S_FlipFlop
+-- Compiling module DataPath
+
+Top level modules:
+	DataPath
+
+} {} {}} {C:/Users/noore/Desktop/Full cpu/Processor/Processor.v} {1 {vlog -work work -stats=none {C:/Users/noore/Desktop/Full cpu/Processor/Processor.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Processor
+
+Top level modules:
+	Processor
+
+} {} {}} {C:/Users/noore/Desktop/Full cpu/Processor/Memory.v} {1 {vlog -work work -stats=none {C:/Users/noore/Desktop/Full cpu/Processor/Memory.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module memory_unit
+
+Top level modules:
+	memory_unit
+
+} {} {}} {C:/Users/noore/Desktop/Full cpu/Processor/Register.v} {1 {vlog -work work -stats=none {C:/Users/noore/Desktop/Full cpu/Processor/Register.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Register
+-- Compiling module RegisterFile
+-- Compiling module tb_RegisterFile
+
+Top level modules:
+	tb_RegisterFile
+
+} {} {}} {C:/Users/noore/Desktop/Full cpu/Processor/Processor_tb.v} {1 {vlog -work work -stats=none {C:/Users/noore/Desktop/Full cpu/Processor/Processor_tb.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Processor_tb
+
+Top level modules:
+	Processor_tb
+
+} {} {}} {C:/Users/noore/Desktop/Full cpu/Processor/ControlUnit.v} {1 {vlog -work work -stats=none {C:/Users/noore/Desktop/Full cpu/Processor/ControlUnit.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module SeqCounter
+-- Compiling module SeqDecoder
+-- Compiling module ControlUnit
+
+Top level modules:
+	ControlUnit
+
+} {} {}} {C:/Users/noore/Desktop/Full cpu/Processor/Alu.v} {1 {vlog -work work -stats=none {C:/Users/noore/Desktop/Full cpu/Processor/Alu.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ALU
+-- Compiling module ALU_tb
+
+Top level modules:
+	ALU_tb
+
+} {} {}}

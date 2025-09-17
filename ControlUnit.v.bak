@@ -1,0 +1,593 @@
+module SeqCounter(
+    input clr,
+    input rst,
+    input clk,
+    output reg [3:0] T
+);
+
+    always @(negedge clk or negedge clr or posedge clr or posedge rst) begin
+        if (clr || rst) begin
+            T <= 4'b0000; // Reset counter on clr
+        end else begin  
+            T <= T + 4'b0001; // Increment counter
+        end
+    end
+endmodule
+
+
+module SeqDecoder(
+    input [3:0] T,
+    output reg T0, T1, T2, T3, T4, T5, T6, T7,
+    output reg T8, T9, T10, T11, T12, T13, T14, T15
+);
+
+    always @(*) begin
+        T0 = 0; T1 = 0; T2 = 0; T3 = 0;
+        T4 = 0; T5 = 0; T6 = 0; T7 = 0;
+        T8 = 0; T9 = 0; T10 = 0; T11 = 0;
+        T12 = 0; T13 = 0; T14 = 0; T15 = 0;
+
+        case (T)
+            4'h0: T0 = 1;
+            4'h1: T1 = 1;
+            4'h2: T2 = 1;
+            4'h3: T3 = 1;
+            4'h4: T4 = 1;
+            4'h5: T5 = 1;
+            4'h6: T6 = 1;
+            4'h7: T7 = 1;
+            4'h8: T8 = 1;
+            4'h9: T9 = 1;
+            4'hA: T10 = 1;
+            4'hB: T11 = 1;
+            4'hC: T12 = 1;
+            4'hD: T13 = 1;
+            4'hE: T14 = 1;
+            4'hF: T15 = 1;
+            default: ;
+        endcase
+    end
+endmodule
+
+module ControlUnit (
+    input rst,
+    input clk,
+    input zero,
+    input [15:0] I,
+    input S,
+    output reg [28:0] control_word,
+    output wire load_INPR,
+    output wire [3:0] T
+    
+);
+    reg clr;
+    wire T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15;
+    reg bootFlag;
+    
+    
+    assign load_INPR = 0;  // Set load_INPR logic as required
+    // Control signal assignments (bit0 to bit28)
+    //ANDim = 
+    //ANDIN = I[15]
+    //ADDIM = I[12]
+    //ADDIN = I[12].I[15]
+    //LDAIM = I[13]
+    //LDAIN = I[13].I[15]
+    //STAIM = I[12].I[13]
+    //STAIN = I[12].I[13].I[15]
+    //BUNIM = I[14]
+    //BUNIN = I[14].I[15]
+    //BSAIM = I[14].I[12]
+    //BSAIN = I[14].I[12].I[15]
+    //ISZIM = I[14].I[13]
+    //ISZIN = I[14].I[13].I[15]
+
+    //CLA = I[12].I[13].I[14].I[11]
+    //CLE = I[12].I[13].I[14].I[10]
+    //CMA = I[12].I[13].I[14].I[9]
+    //CME = I[12].I[13].I[14].I[8]
+    //CIR = I[12].I[13].I[14].I[7]
+    //CIL = I[12].I[13].I[14].I[6]
+    //INC = I[12].I[13].I[14].I[5]
+    //SPA = I[12].I[13].I[14].I[4]
+    //SNA = I[12].I[13].I[14].I[3]
+    //SZA = I[12].I[13].I[14].I[2]
+    //SZE = I[12].I[13].I[14].I[1]
+    //HLT = I[12].I[13].I[14].I[0]
+
+    //INP = I[12].I[13].I[14].I[15].I[11]
+    //OUT = I[12].I[13].I[14].I[15].I[10]
+
+    
+    always @(negedge clk or posedge rst) begin
+        if (rst || S) begin
+            control_word <= 29'b00000000000000000000000000000;  // Reset control_word on rst
+            bootFlag = 0;
+        end else begin
+            
+            if(!bootFlag)begin
+                if(T1)begin
+                control_word <= 29'b1110000100000000000000000; 
+                end
+                else if(T2)begin
+                control_word <= 29'b0000000000010000000000000;
+                bootFlag = 1;
+                clr = 1;
+                end 
+            end
+//fetch
+            else begin
+                clr = 0;
+                if(T0)begin
+                    control_word<=29'h811000;
+                end
+                else if(T1)begin
+                    control_word<=29'h1C20000;
+                end
+                else if(T2)begin
+                    control_word<=29'h10;
+                end
+
+
+                else if((I & 16'hF000) == 16'h0000)begin
+                    
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1c20000;
+                    end
+                    
+                    if(T7)begin
+                        control_word<=29'h400;
+                    end
+                    if(T8)begin
+                        control_word<=29'h100000;
+                    end
+                    if(T9)begin
+                        control_word<=29'h80;
+                    end
+                    if(T10)begin
+                        control_word<=29'h0;
+                    end
+                    if(T11)begin
+                        clr = 1;
+                    end
+                    
+                end
+                else if((I & 16'hF000) == 16'h8000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T7)begin
+                        control_word<=29'h10000;
+                    end
+                    if(T8)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T10)begin
+                        control_word<=29'h400;
+                    end
+                    if(T11)begin
+                        control_word<=29'h100000;
+                    end
+                    if(T12)begin
+                        control_word<=29'h80;
+                    end
+                    if(T13)begin
+                        clr = 1;control_word <= 29'b00000000000000000000000000000;
+                    end
+                    
+                end
+                else if((I & 16'hF000) == 16'h1000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T7)begin
+                        control_word<=29'h400;
+                    end
+                    if(T8)begin
+                        control_word<=29'h80000;
+                    end
+                    if(T9)begin
+                        control_word<=29'h80;
+                    end
+                    if(T10)begin
+                        clr = 1;control_word <= 29'b00000000000000000000000000000;
+                    end
+                    
+                end
+                else if((I & 16'hF000) == 16'h9000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T7)begin
+                        control_word<=29'h10000;
+                    end
+                    if(T8)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T10)begin
+                        control_word<=29'h400;
+                    end
+                    if(T11)begin
+                        control_word<=29'h80000;
+                    end
+                    if(T12)begin
+                        control_word<=29'h80;
+                    end
+                    if(T13)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if((I & 16'hF000) == 16'h2000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T7)begin
+                        control_word<=29'h420;
+                    end
+                    if(T8)begin
+                        control_word<=29'h80000;
+                    end 
+                    if(T9)begin
+                        control_word<=29'h80;
+                    end
+                    if(T10)begin
+                        control_word<=29'h0;
+                    end
+                    if(T11)begin
+                        clr = 1;
+                    end
+                end
+                else if((I & 16'hF000) == 16'hA000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T7)begin
+                        control_word<=29'h10000; 
+                    end
+                    if(T8)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T10)begin
+                        control_word<=29'h420;
+                    end
+                    if(T11)begin
+                        control_word<=29'h80000;
+                    end
+                    if(T12)begin
+                        control_word<=29'h80;
+                    end
+                    if(T13)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if((I & 16'hF000) == 16'h3000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1040000;
+                    end
+                    if(T6)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if((I & 16'hF000) == 16'hB000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T7)begin
+                        control_word<=29'h10000;
+                    end
+                    if(T8)begin
+                        control_word<=29'h1040000;
+                    end
+                    if(T9)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if((I & 16'hF000) == 16'h4000)begin
+                    if(T4)begin
+                        control_word<=29'h1402000;
+                    end
+                    if(T5)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if((I & 16'hF000) == 16'hC000)begin
+                end
+                else if((I & 16'hF000) == 16'h5000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h840000;
+                    end
+                    if(T6)begin
+                        control_word<=29'h80000;
+                    end
+                    if(T7)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T9)begin
+                        control_word<=29'h2000;
+                    end
+                    if(T10)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                    
+                end
+                else if((I & 16'hF000) == 16'hD000)begin
+                end
+                else if((I & 16'hF000) == 16'h6000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T7)begin
+                        control_word<=29'h400;
+                    end
+                    if(T8)begin
+                        control_word<=29'h220;
+                    end
+                    if(T9)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T11)begin
+                        control_word<=29'h0c40000;
+                    end
+                    if(T12)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                    
+                end
+                else if((I & 16'hF000) == 16'hE000)begin
+                    if(T4)begin
+                        control_word<=29'h1410000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T7)begin
+                        control_word<=29'h10000; 
+                    end
+                    if(T8)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T10)begin
+                        control_word<=29'h400;
+                    end
+                    if(T11)begin
+                        control_word<=29'h220;
+                    end
+                    if(T12)begin
+                        control_word<=29'h1c20000;
+                    end
+                    if(T13)begin
+                        control_word<=29'h0c40000;
+                    end
+                    if(T14)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                    
+                end
+                else if(I == 16'h7800)begin
+                    if(T4)begin
+                        control_word<=29'h20;
+                    end
+                    if(T5)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if(I == 16'h7400)begin
+                    
+                    if(T4)begin
+                        control_word<=29'h2000000;
+                    end
+                    if(T5)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                    
+                    
+                end
+                else if(I == 16'h7200)begin
+                    if(T4)begin
+                        control_word<=29'h180000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h80;
+                    end
+                    if(T6)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                    
+                    
+                end
+                else if(I == 16'h7100)begin
+                    if(T4)begin
+                        control_word<=29'h6000000;
+                    end
+                    if(T5)begin
+                        clr = 1;control_word <= 29'b00000000000000000000000000000;
+                    end
+                end
+                else if(I == 16'h7080)begin
+                    if(T4)begin
+                        control_word<=29'h300000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h80;
+                    end
+                    if(T6)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if(I == 16'h7040)begin
+                    if(T4)begin
+                        control_word<=29'h280000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h80;
+                    end
+                    if(T6)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if(I == 16'h7020)begin
+                    if(T4)begin
+                        control_word<=29'h40;
+                    end
+                    if(T5)begin
+                        control_word<=29'h0;
+                    end
+                    if(T6)begin
+                        clr = 1;
+                    end
+                end
+                else if(I == 16'h7010)begin
+                    if(T4)begin
+                        control_word<=29'h1000008;
+                    end
+                    if(T5)begin
+                        control_word<=29'h280000;
+                    end
+                    if(!zero)begin
+                        if(T6)begin
+                            control_word<=29'b1000000000000;
+                        end
+                    end
+                    
+                    if(T7)begin
+                        control_word<=29'h1800420;
+                    end
+                    if(T8)begin
+                        control_word<=29'h80000;
+                    end
+                    if(T9)begin
+                        control_word<=29'h80;
+                    end
+                    if(T10)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if(I == 16'h7008)begin
+                    if(T4)begin
+                        control_word<=29'h1009000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h280000;
+                    end
+                    if(zero)begin
+                        if(T6)begin
+                            control_word<=29'b1000000000000;
+                        end
+                    end
+                    
+                    if(T7)begin
+                        control_word<=29'h1800420;
+                    end
+                    if(T8)begin
+                        control_word<=29'h80000;
+                    end
+                    if(T9)begin
+                        control_word<=29'h80;
+                    end
+                    if(T10)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if(I == 16'h7004)begin
+                    if(T4)begin
+                        control_word<=29'b00001000000000000010000000000;
+                    end
+                    if(T5)begin
+                        control_word<=29'h80000;
+                    end
+                    if(zero)begin
+                        if(T6)begin
+                            control_word<=29'b1000000000000;
+                        end
+                    end
+                    if(T7)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                    
+                end
+                else if(I == 16'h7002)begin
+                    if(!zero)begin
+                        if(T4)begin
+                            control_word<=29'b1000000000000;
+                        end
+                    end
+                    if(T5)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if(I == 16'h7001)begin
+                    if(T4)begin
+                        control_word = 29'b11000000000000000000000000000;
+                    end
+                    if(T5)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if(I == 16'hF800)begin
+                    if(T4)begin
+                        control_word = 29'h280000;
+                    end
+                    if(T5)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else if(I == 16'hF400)begin
+                    if(T4)begin
+                        control_word = 29'h1000001;
+                    end
+                    if(T5)begin
+                        clr = 1;control_word<=29'h0;
+                    end
+                end
+                else begin control_word <= 29'b00000000000000000000000000000; end
+            end
+        end
+    end
+    
+
+    // Instantiate the SeqCounter and SeqDecoder modules
+    SeqCounter SC (
+        .rst(rst),
+        .clr(clr), 
+        .clk(clk),
+        .T(T)
+    );
+
+    SeqDecoder SD (
+        .T(T),
+        .T0(T0), .T1(T1), .T2(T2), .T3(T3), .T4(T4), .T5(T5),
+        .T6(T6), .T7(T7), .T8(T8), .T9(T9), .T10(T10), .T11(T11),
+        .T12(T12), .T13(T13), .T14(T14), .T15(T15)  
+    );
+    
+endmodule
